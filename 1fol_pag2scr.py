@@ -19,10 +19,9 @@ from scrapy.loader.processors import MapCompose
 from scrapy.spiders import Spider
 from scrapy import Request
 from w3lib.html import remove_tags
-from lencsebolthu.items import LencsebolthuItem
 
 
-class LencsebolthuSpider(Spider):
+class MySpider(Spider):
     name = ''
     start_urls = ['']  # LEVEL 1
 
@@ -35,7 +34,7 @@ class LencsebolthuSpider(Spider):
 
     # 2. SCRAPING LEVEL 2
     def populate_item(self, response):
-        item_loader = ItemLoader(item=LencsebolthuItem(), response=response)
+        item_loader = ItemLoader(item=MySpiderItem(), response=response)
         item_loader.default_input_processor = MapCompose(remove_tags)
 
         # item_loader.add_css("", "")

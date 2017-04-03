@@ -12,7 +12,7 @@
 # 2. SCRAPING: Scrape the fields and populate item.
 # 3. PAGINATION: Go to the next page with the "next button" if any.
 # 2. ...
-#
+# 3. ...
 #
 
 
@@ -21,11 +21,10 @@ from scrapy.loader.processors import MapCompose
 from scrapy.spiders import Spider
 from scrapy import Request
 from w3lib.html import remove_tags
-from lencsehu.items import LencsehuItem
 
 
-class LencsehuSpider(Spider):
-    name = 'netoptikhu'
+class MySpider(Spider):
+    name = ''
     start_urls = ['']  # FIRST LEVEL
 
     # 1. FOLLOWING
@@ -38,7 +37,7 @@ class LencsehuSpider(Spider):
 
     # 2. SCRAPING LEVEL 2
     def populate_item(self, response):
-        item_loader = ItemLoader(item=LencsehuItem(), response=response)
+        item_loader = ItemLoader(item=MySpiderItem(), response=response)
         item_loader.default_input_processor = MapCompose(remove_tags)
 
         # item_loader.add_css("")

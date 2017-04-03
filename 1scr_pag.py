@@ -17,10 +17,9 @@ from scrapy.loader.processors import TakeFirst, MapCompose
 from scrapy.spiders import Spider
 from scrapy import Request
 from w3lib.html import remove_tags
-from netoptikhu.items import NetoptikhuItem
 
-class NetoptikhuSpider(Spider):
-    name = 'netoptikhu'
+class MySpider(Spider):
+    name = ''
     start_urls = [''] #FIRST LEVEL
 
     def parse(self, response):
@@ -35,7 +34,7 @@ class NetoptikhuSpider(Spider):
 
     # 1. SCRAPING
     def populate_item(self, selector):
-        item_loader = ItemLoader(item=NetoptikhuItem(), selector=selector)
+        item_loader = ItemLoader(item=MySpiderItem(), selector=selector)
         item_loader.default_input_processor = MapCompose(remove_tags)
         item_loader.default_output_processor = TakeFirst()
         #

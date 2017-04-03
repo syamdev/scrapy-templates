@@ -19,10 +19,9 @@ from scrapy.spiders import CrawlSpider
 from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 from w3lib.html import remove_tags
-from lencsehu.items import LencsehuItem
 
 
-class LencsehuSpider(CrawlSpider):
+class MySpider(CrawlSpider):
     name = ''
     start_urls = ['']  # LEVEL 1
 
@@ -33,7 +32,7 @@ class LencsehuSpider(CrawlSpider):
 
     # 2. SCRAPING level 2
     def populate_item(self, response):
-        item_loader = ItemLoader(item=LencsehuItem(), response=response)
+        item_loader = ItemLoader(item=MySpiderItem(), response=response)
         item_loader.default_input_processor = MapCompose(remove_tags)
 
         #item_loader.add_css("", "")
