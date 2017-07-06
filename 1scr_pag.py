@@ -27,10 +27,9 @@ class MySpider(Spider):
             yield self.populate_item(item_box)
 
         # 2. PAGINATION
-	next_page_url = response.css("").extract_first() # pagination("next button") href attribute here
+        next_page_url = response.css("").extract_first()  # pagination("next button") <a> element here
         if next_page_url is not None:
-            next_page_url = response.urljoin(next_page_url)
-            yield Request(next_page_url, callback=self.parse)
+            yield response.follow(next_page_url, self.populate_item)
 
     # 1. SCRAPING
     def populate_item(self, selector):

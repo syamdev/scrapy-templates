@@ -42,9 +42,7 @@ class MySpider(Spider):
 
     # 3. PAGINATION LEVEL 1
     def paginate(self, response):
-        # pagination("next button") href attribute here
-        next_page_url = response.css("").extract_first()
+        next_page_url = response.css("").extract_first()  # pagination("next button") <a> element here
         if next_page_url is not None:
-            next_page_url = response.urljoin(next_page_url)
-            return Request(next_page_url, callback=self.parse)
+            return response.follow(next_page_url, self.populate_item)
 
