@@ -13,7 +13,7 @@ from scrapy.spiders import Spider
 from w3lib.html import remove_tags
 
 
-class LencsebolthuSpider(Spider):
+class MySpider(Spider):
     name = ''
     start_urls = ['']  # LEVEL 1
 
@@ -22,7 +22,7 @@ class LencsebolthuSpider(Spider):
         item_loader = ItemLoader(item=MyItem(), response=response)
         item_loader.default_input_processor = MapCompose(remove_tags)
         #item_loader.add_css("", "")
-        #item_loader.add_css("", "a")
+        #item_loader.add_css("", "")
         #item_loader.add_css("", "")
         yield FormRequest("POST_URL", formdata={'parameter': 'p'},
                                         meta={'item': item_loader.load_item()}, callback=self.populate_field)
