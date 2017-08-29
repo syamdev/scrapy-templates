@@ -29,7 +29,7 @@ class MySpider(Spider):
     def parse(self, response):
         for follow_url in response.css("").extract():
             url = response.urljoin(follow_url)
-            yield Request(url, callback=self.populate_item)
+            yield response.follow(url, self.populate_item)
         yield self.paginate(response)
 
     # 2. SCRAPING LEVEL 2
@@ -44,5 +44,5 @@ class MySpider(Spider):
     def paginate(self, response):
         next_page_url = response.css("").extract_first()  # pagination("next button") <a> element here
         if next_page_url is not None:
-            return response.follow(next_page_url, self.populate_item)
+            return response.follow(next_page_url, self.parse)
 
