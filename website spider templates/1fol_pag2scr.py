@@ -28,8 +28,7 @@ class MySpider(Spider):
     # 1. FOLLOWING LEVEL 1
     def parse(self, response):
         for follow_url in response.css("").extract():
-            url = response.urljoin(follow_url)
-            yield response.follow(url, self.populate_item)
+            yield response.follow(follow_url, self.populate_item)
         yield self.paginate(response)
 
     # 2. SCRAPING LEVEL 2
