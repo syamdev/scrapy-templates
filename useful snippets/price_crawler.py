@@ -16,16 +16,13 @@
 #
 #
 
-
 import uuid
 import datetime
 import requests
 from scrapy import Request
-from scrapy_splash import SplashRequest
 from scrapy import Spider
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst
-from w3lib.http import basic_auth_header
 from PriceCrawler.custom_items import *
 
 class PriceSpider(Spider):
@@ -45,7 +42,6 @@ class PriceSpider(Spider):
     def start_requests(self):
         products_api = ("{app_url}/api/products?apikey={apikey}&shop_id={shop_id}"
                         ).format(app_url=self.app_url, apikey=self.apikey, shop_id=self.shop_id)
-        logging.log(logging.INFO, products_url)
         products = requests.get(products_api).json()
         for product in products:
             url = product.get("Url")
@@ -54,7 +50,7 @@ class PriceSpider(Spider):
 
     # 1. Scraping using the given css selectors
     def parse(self, response):
-        item = globals()[self.item_class_name]()
+        item = PriceItem()
         item_loader = ItemLoader(item=item, response=response)
         item_loader.default_output_processor = TakeFirst()
         
